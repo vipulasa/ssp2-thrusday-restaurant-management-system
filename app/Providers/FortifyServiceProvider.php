@@ -48,5 +48,11 @@ class FortifyServiceProvider extends ServiceProvider
             return $user->role === $role;
         });
 
+        Gate::define('seeAdminFeatures', function ($user) {
+            return $user->role->name === 'Administrator';
+        });
+
+
+
     }
 }
