@@ -12,7 +12,10 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.users.index', [
+            'users' => User::orderBy('id', 'DESC')
+                ->paginate(10)
+        ]);
     }
 
     /**
@@ -20,7 +23,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.users.create');
     }
 
     /**
@@ -28,7 +31,22 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // validate the request
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255|unique:users',
+            'password' => 'required|string|min:8',
+            'role' => 'required|integer|in:1,2,3'
+        ]);
+
+        // create the user
+        User::create($request->all());
+
+        // redirect to the index page
+        return redirect()
+            ->route('admin.users.index')
+            ->with('flash.bannerStyle', 'success')
+            ->with('flash.banner', 'User created successfully.');
     }
 
     /**
@@ -36,7 +54,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        //
+        return view('admin.users.show', compact('user'));
     }
 
     /**
@@ -44,7 +62,7 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        //
+        return view('admin.users.edit', compact('user'));
     }
 
     /**
@@ -52,7 +70,18 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255|unique:users,email,' . $user->id,
+            'role' => 'required|integer|in:1,2,3'
+        ]);
+
+        $user->update($request->all());
+
+        return redirect()
+            ->route('admin.users.index')
+            ->with('flash.bannerStyle', 'success')
+            ->with('flash.banner', 'User updated successfully.');
     }
 
     /**
