@@ -1,5 +1,7 @@
 <?php
 
+use App\Enums\UserRole;
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
 // Type of routes based on the REST convention
@@ -54,7 +56,17 @@ require __DIR__ . '/modules/rewards.php';
 
 
 
+//Route::get('user/{id}', function ($id) {
+//
+//    $user = User::where('role', UserRole::Customer)
+//        ->where('id', $id)
+//        ->firstOrFail();
+//    dd($user);
+//});
 
+Route::get('user/{customer}', function (User $user) {
+    dd($user);
+});
 
 Route::get('/', function () {
     return view('welcome');
@@ -66,13 +78,9 @@ Route::middleware([
     'verified',
 ])->group(function () {
 
-
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
-
-
-
 
 });
 
@@ -81,8 +89,6 @@ Route::middleware([
 ])->get('/admin', function(){
 
     dd(\Illuminate\Support\Facades\Gate::allows('admin'));
-
-
     return 'Adoo Admin !!!';
 });
 
