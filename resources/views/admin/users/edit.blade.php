@@ -31,15 +31,15 @@
                             @enderror
                         </div>
 
-{{--                        <div class="px-6 py-3">--}}
-{{--                            <label for="password" class="block font-medium text-sm text-gray-700">Password</label>--}}
-{{--                            <input type="password" name="password" id="password"--}}
-{{--                                   value="{{ old('password') }}" class="form-input--}}
-{{--                            rounded-md shadow-sm mt-1 block w-full"/>--}}
-{{--                            @error('password')--}}
-{{--                            <p class="text-red-500 text-xs mt-1">{{ $message }}</p>--}}
-{{--                            @enderror--}}
-{{--                        </div>--}}
+                        <div class="px-6 py-3">
+                            <label for="password" class="block font-medium text-sm text-gray-700">Password</label>
+                            <input type="password" name="password" id="password"
+                                   value="{{ old('password') }}" class="form-input
+                            rounded-md shadow-sm mt-1 block w-full"/>
+                            @error('password')
+                            <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                            @enderror
+                        </div>
 
                         <div class="px-6 py-3">
                             <label for="role" class="block font-medium text-sm text-gray-700">Role</label>

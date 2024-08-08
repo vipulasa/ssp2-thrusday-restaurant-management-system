@@ -73,8 +73,14 @@ class UserController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|max:255|unique:users,email,' . $user->id,
-            'role' => 'required|integer|in:1,2,3'
+            'role' => 'required|integer|in:1,2,3',
+            'password' => 'nullable|string|min:8'
         ]);
+
+        // remove the password field if it is empty
+        if (empty($request->password)) {
+            $request->request->remove('password');
+        }
 
         $user->update($request->all());
 
