@@ -6,6 +6,9 @@
     </x-slot>
 
     <div class="py-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mb-4 items-end flex">
+            <a href="{{ route('admin.users.create') }}" class="bg-black text-white font-bold py-2 px-4 rounded">Create User</a>
+        </div>
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <table class="min-w-full divide-y divide-gray-200">
                 <thead>

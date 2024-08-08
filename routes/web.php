@@ -2,6 +2,7 @@
 
 use App\Enums\UserRole;
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 // Type of routes based on the REST convention
@@ -67,6 +68,24 @@ require __DIR__ . '/modules/rewards.php';
 Route::get('user/{customer}', function (User $user) {
     dd($user);
 });
+
+Route::get('validator', function (Request $request) {
+
+    try {
+        $validator = $request->validate([
+            'name' => 'required|max:2',
+        ]);
+
+
+
+        dd($validator);
+    }catch (\Illuminate\Validation\ValidationException $e){
+        dd($e->validator);
+    }
+
+
+});
+
 
 Route::get('/', function () {
     return view('welcome');

@@ -14,20 +14,30 @@
                     <div class="grid grid-cols-1">
                         <div class="px-6 py-3">
                             <label for="name" class="block font-medium text-sm text-gray-700">Name</label>
-                            <input type="text" name="name" id="name" value=""
+                            <input type="text" name="name" id="name" value="{{ old('name') }}"
                                    class="form-input rounded-md shadow-sm mt-1 block w-full"/>
+                            @error('name')
+                            <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                            @enderror
                         </div>
 
                         <div class="px-6 py-3">
                             <label for="email" class="block font-medium text-sm text-gray-700">Email</label>
-                            <input type="email" name="email" id="email" value="" class="form-input
+                            <input type="email" name="email" id="email" value="{{ old('email') }}" class="form-input
                             rounded-md shadow-sm mt-1 block w-full"/>
+                            @error('email')
+                            <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                            @enderror
                         </div>
 
                         <div class="px-6 py-3">
                             <label for="password" class="block font-medium text-sm text-gray-700">Password</label>
-                            <input type="password" name="password" id="password" value="" class="form-input
+                            <input type="password" name="password" id="password"
+                                   value="{{ old('password') }}" class="form-input
                             rounded-md shadow-sm mt-1 block w-full"/>
+                            @error('password')
+                            <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                            @enderror
                         </div>
 
                         <div class="px-6 py-3">
@@ -35,14 +45,25 @@
 
                             <select name="role" id="role" class="form-input
                             rounded-md shadow-sm mt-1 block w-full">
-                                <option value="1">Administrator</option>
-                                <option value="2">Restaurant Manager</option>
-                                <option value="3">Customer</option>
+                                <option value="">Select</option>
+                                <option value="1" {{ (old('role') == '1' ? 'selected' : '') }}>
+                                    Administrator
+                                </option>
+                                <option value="2" {{ (old('role') == '2' ? 'selected' : '') }}>
+                                    Restaurant Manager
+                                </option>
+                                <option value="3" {{ (old('role') == '3' ? 'selected' : '') }}>
+                                    Customer
+                                </option>
                             </select>
+                            @error('role')
+                            <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                            @enderror
                         </div>
 
                         <div class="px-6 py-3">
-                            <button type="submit" class="bg-black font-bold py-2 px-4 rounded">Create User</button>
+                            <button type="submit" class="bg-black text-white font-bold py-2 px-4 rounded">Create User
+                            </button>
                         </div>
                     </div>
                 </form>
