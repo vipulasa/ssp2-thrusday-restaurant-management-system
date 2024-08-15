@@ -8,6 +8,12 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mb-4 items-end flex">
             <a href="{{ route('admin.users.create') }}" class="bg-black text-white font-bold py-2 px-4 rounded">Create User</a>
+
+            <a x-data
+               @click="$dispatch('showUserFormModal')"
+               class="bg-black text-white font-bold py-2 px-4 rounded">
+                Create User From Modal
+            </a>
         </div>
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <table class="min-w-full divide-y divide-gray-200">
@@ -51,6 +57,12 @@
                             |
                             <a href="{{ route('admin.users.edit', $user->id) }}"
                                class="text-indigo-600 hover:text-indigo-900">Edit</a>
+
+                            <a x-data
+                               @click="$dispatch('showUserFormModal', { user: {{ $user }} })"
+                               class="text-indigo-600 hover:text-indigo-900">
+                                Edit Modal
+                            </a>
                         </td>
                     </tr>
                 @endforeach
@@ -62,10 +74,7 @@
                 {{ $users->links() }}
             </div>
 
-
-            <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-
-            </div>
+            @livewire('userformmodal')
         </div>
     </div>
 </x-app-layout>

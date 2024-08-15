@@ -23,6 +23,12 @@ class UserController extends Controller
      */
     public function create()
     {
+        // the BAD ASS way
+        return view('admin.users.form', [
+            'user' => new User()
+        ]);
+
+        // The classic way
         return view('admin.users.create');
     }
 
@@ -62,6 +68,10 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
+        // the BAD ASS way
+        return view('admin.users.form', compact('user'));
+
+        // the classic way
         return view('admin.users.edit', compact('user'));
     }
 
