@@ -22,5 +22,9 @@ class DatabaseSeeder extends Seeder
         ]);
 
         User::factory(30)->create();
+
+        $this->call([
+            CuisineSeeder::class,
+        ]);
     }
 }

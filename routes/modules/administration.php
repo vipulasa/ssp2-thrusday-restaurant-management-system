@@ -16,6 +16,11 @@ Route::middleware([
             name: 'users',
             controller: \App\Http\Controllers\UserController::class
         );
+
+        Route::resource(
+            name: 'restaurants',
+            controller: \App\Http\Controllers\RestaurantController::class
+        );
     });
 
 
