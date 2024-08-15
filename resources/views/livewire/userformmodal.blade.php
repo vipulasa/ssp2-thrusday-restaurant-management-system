@@ -145,7 +145,8 @@ $saveForm = function () {
                         </div>
 
                         <div class="px-6 py-3">
-                            <button type="submit" class="bg-black text-white font-bold py-2 px-4 rounded">Create User
+                            <button type="submit" class="bg-black text-white font-bold py-2 px-4 rounded">
+                                {{ $user?->id ? 'Update' : 'Create' }} User
                             </button>
                         </div>
                     </div>
