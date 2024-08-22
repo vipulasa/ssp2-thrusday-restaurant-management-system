@@ -13,7 +13,11 @@
 
                 @endcan
 
-                @livewire('sample-component')
+                <x-restaurant-api-list />
+
+                @livewire('restaurant-list')
+
+{{--                @livewire('sample-component')--}}
 
 {{--                <x-welcome />--}}
             </div>
