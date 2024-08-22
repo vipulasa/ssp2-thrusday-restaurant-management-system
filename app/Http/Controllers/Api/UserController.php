@@ -7,13 +7,31 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
+/**
+ * Class UserController
+ *
+ * @package Laravel\App\Http\Controllers
+ */
 class UserController extends Controller
 {
+    /**
+     * Retrieves the authenticated user.
+     *
+     * @param Request $request The request object.
+     * @return mixed The authenticated user object.
+     */
     public function show(Request $request)
     {
         return $request->user();
     }
 
+    /**
+     * Authenticates a user.
+     *
+     * @param Request $request The request object containing user data.
+     * @return mixed The authentication result.
+     * @throws \Exception If the user is not authenticated.
+     */
     public function authenticate(Request $request)
     {
         return rescue(function() use ($request){
