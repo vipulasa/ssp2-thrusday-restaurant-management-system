@@ -55,7 +55,9 @@ require __DIR__ . '/modules/restaurant.php';
 // Rewards Routes
 require __DIR__ . '/modules/rewards.php';
 
-
+Route::get('/chat', function () {
+    return view('chat');
+});
 
 //Route::get('user/{id}', function ($id) {
 //

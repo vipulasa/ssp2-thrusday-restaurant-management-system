@@ -21,7 +21,7 @@ class DatabaseSeeder extends Seeder
             'role' => 1,
         ]);
 
-        User::factory(30)->create();
+//        User::factory(30)->create();
 
         $this->call([
             CuisineSeeder::class,
