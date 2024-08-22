@@ -40,5 +40,4 @@ class Restaurant extends Model implements HasMedia
 
         $this->addMediaCollection('gallery');
     }
-
 }

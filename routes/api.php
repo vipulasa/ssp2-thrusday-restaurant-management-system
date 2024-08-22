@@ -14,4 +14,15 @@ Route::middleware('auth:sanctum')
 Route::post('/user/auth', [UserController::class, 'authenticate']);
 
 
+Route::get('/restaurants', function(){
+
+    $restaurant = \App\Models\Restaurant::first();
+
+    return response()->json([
+        'name' => 'Restaurants',
+        'description' => 'List of all restaurants',
+//        'restaurant' => \App\Http\Resources\Restaurant::make($restaurant),
+        'restaurants' => \App\Http\Resources\RestaurantCollection::make(\App\Models\Restaurant::all()),
+    ]);
+});
 
