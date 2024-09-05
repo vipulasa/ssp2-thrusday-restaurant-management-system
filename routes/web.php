@@ -185,3 +185,17 @@ Route::get('/session', function (Request $request) {
 
     return view('session');
 });
+
+Route::get('/notification', function (Request $request) {
+
+    $user = (new User())->first();
+
+    $user->notify(new \App\Notifications\DatabaseSampleNotification());
+
+//
+//    $user->notify(new \App\Notifications\SampleNotification());
+
+    return view('notification', [
+        'user' => $user
+    ]);
+});
