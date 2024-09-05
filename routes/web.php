@@ -25,8 +25,8 @@ Route::get('sample/say-hello', [
 // INVOKABLE CONTROLLER ROUTE, USE THIS FOR SIMPLE ROUTES
 // THAT WILL HAVE ONLY ONE PURPOSE
 Route::get(
-    uri:'sample/dashboard',
-    action:\App\Http\Controllers\DashboardController::class
+    uri: 'sample/dashboard',
+    action: \App\Http\Controllers\DashboardController::class
 );
 
 // RESOURCE CONTROLLER ROUTES CAN BE FOUND EVERYWHERE :P
@@ -59,6 +59,10 @@ Route::get('/chat', function () {
     return view('chat');
 });
 
+Route::get('/test-event', function () {
+    event(new \App\Events\TestEvent());
+});
+
 //Route::get('user/{id}', function ($id) {
 //
 //    $user = User::where('role', UserRole::Customer)
@@ -68,7 +72,10 @@ Route::get('/chat', function () {
 //});
 
 Route::get('user/{customer}', function (User $user) {
-    dd($user);
+    return response()->json([
+        'status' => true,
+        'data' => \App\Http\Resources\UserResource::make($user)
+    ]);
 });
 
 Route::get('validator', function (Request $request) {
@@ -79,9 +86,8 @@ Route::get('validator', function (Request $request) {
         ]);
 
 
-
         dd($validator);
-    }catch (\Illuminate\Validation\ValidationException $e){
+    } catch (\Illuminate\Validation\ValidationException $e) {
         dd($e->validator);
     }
 
@@ -107,20 +113,75 @@ Route::middleware([
 
 Route::middleware([
     'role:Administrator',
-])->get('/admin', function(){
+])->get('/admin', function () {
 
     dd(\Illuminate\Support\Facades\Gate::allows('admin'));
     return 'Adoo Admin !!!';
 });
 
-Route::middleware([])->get('/test', function(){
+Route::middleware([])->get('/test', function () {
 
-    if(!\Illuminate\Support\Facades\Gate::allows(
+    if (!\Illuminate\Support\Facades\Gate::allows(
         'role',
         \App\Enums\UserRole::Administrator
-    )){
+    )) {
         abort(403);
     }
 
     return 'Adoo Admin !!!';
+});
+
+
+Route::get('/cache', function () {
+
+    // helper method
+    // cache();
+
+    // facade
+    // \Illuminate\Support\Facades\Cache::get();
+
+    if($home_page = cache()->get('home_page')) {
+        $user = (new User())->get();
+
+        $restaurant = (new \App\Models\Restaurant())->get();
+
+        $cuisine = (new \App\Models\Cuisine())->get();
+
+        $home_page = [
+            'user' => $user,
+            'restaurant' => $restaurant,
+            'cuisine' => $cuisine,
+        ];
+
+        cache()->put('home_page', $home_page, 60);
+    }
+
+    return view('cache', compact('home_page'));
+});
+
+Route::get('/session', function (Request $request) {
+
+    // helper method
+    // session();
+
+    // facade
+    // \Illuminate\Support\Facades\Session::get();
+
+    $user = (new User())->first();
+
+//    session()->put('user', [
+//        'id' => $user->id,
+//        'name' => $user->name,
+//        'email' => $user->email,
+//    ]);
+
+//    session()->forget('name');
+
+//    session()->flash('message', 'This is a flash message');
+
+    $request->session()->put('something', [
+        'name' => 'John Doe'
+    ]);
+
+    return view('session');
 });
