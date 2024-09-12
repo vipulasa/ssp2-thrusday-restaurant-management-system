@@ -13,8 +13,13 @@ Route::middleware('auth:sanctum')
 
 Route::post('/user/auth', [UserController::class, 'authenticate']);
 
+Route::post('/analytics/make-hit', [
+    \App\Http\Controllers\Api\AnalyticsController::class,
+    'makeHit'
+]);
 
-Route::get('/restaurants', function(){
+
+Route::get('/restaurants', function () {
 
     $restaurant = \App\Models\Restaurant::first();
 

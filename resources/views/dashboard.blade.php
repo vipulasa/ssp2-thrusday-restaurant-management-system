@@ -13,7 +13,7 @@
 
                 @endcan
 
-                <x-restaurant-api-list />
+{{--                <x-restaurant-api-list />--}}
 
                 @livewire('restaurant-list')
 
